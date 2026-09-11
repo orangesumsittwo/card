@@ -1,0 +1,143 @@
+/* =================================================================
+  个人名片 —— 样式文件 (style.css)
+  风格：简约  布局：居中卡片式
+  要点：卡片 12px 圆角 + 柔和阴影 + 悬停轻微上浮过渡动画
+  ================================================================= */
+
+/* ---------- 1. 全局重置：清除浏览器默认样式，统一盒模型 ---------- */
+* {
+  margin: 0;                /* 清除默认外边距 */
+  padding: 0;               /* 清除默认内边距 */
+  box-sizing: border-box;   /* 内边距与边框计入元素总宽高，便于计算 */
+}
+
+/* ---------- 2. 主题变量：颜色统一管理，方便后续调整 ---------- */
+:root {
+  --color-primary: #4a7fd6;        /* 主色：头像渐变、图标统一使用 */
+  --color-primary-light: #7fa9e8;  /* 主色的浅色端（头像渐变用）     */
+  --color-text: #2c3a4b;           /* 正文文字颜色                   */
+  --color-muted: #8a94a6;          /* 次要文字颜色（职位等）         */
+  --card-bg: #ffffff;              /* 卡片背景色                     */
+  --card-radius: 12px;             /* 卡片圆角半径（需求：12px）     */
+}
+
+/* ---------- 3. 页面主体：渐变底色 + 弹性布局实现居中卡片 ---------- */
+body {
+  min-height: 100vh;              /* 视口至少占满一屏，保证卡片垂直居中有效 */
+  display: flex;                  /* 开启弹性盒布局                        */
+  justify-content: center;        /* 水平方向居中                          */
+  align-items: center;            /* 垂直方向居中                          */
+  background: linear-gradient(135deg, #eef3f8 0%, #dfe8f1 50%, #eef3f8 100%);
+  font-family: "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  color: var(--color-text);
+}
+
+/* ---------- 4. 名片卡片 ---------- */
+.card {
+  width: 360px;                             /* 卡片固定宽度          */
+  max-width: calc(100% - 32px);             /* 窄屏时自动收缩，防溢出 */
+  padding: 44px 30px 34px;                  /* 卡片内边距（上 下 中） */
+  background: var(--card-bg);
+  border-radius: var(--card-radius);        /* ★ 12px 圆角 */
+  box-shadow:
+    0 4px 16px rgba(31, 41, 60, 0.10),      /* 柔和双层阴影：大范围浅影 */
+    0 2px 6px  rgba(31, 41, 60, 0.06);      /*   + 小范围近影，更加细腻 */
+  text-align: center;                       /* 卡片内容整体居中        */
+  /* ★ 悬停过渡动画：transform 与 box-shadow 各 0.3 秒平滑变化 */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* 鼠标悬停时：卡片轻微上浮，并加深阴影增强层次感 */
+.card:hover {
+  transform: translateY(-6px);              /* 上浮 6 像素（"轻微"） */
+  box-shadow:
+    0 14px 30px rgba(31, 41, 60, 0.16),     /* 悬停时阴影加深变宽   */
+    0 4px 10px rgba(31, 41, 60, 0.08);
+}
+
+/* ---------- 5. 圆形头像 ---------- */
+.avatar {
+  width: 96px;
+  height: 96px;
+  margin: 0 auto 22px;                      /* 水平居中，下留间距     */
+  border-radius: 50%;                       /* 50% 圆角 → 正圆头像   */
+  background: linear-gradient(135deg, var(--color-primary-light), var(--color-primary));
+  color: #fff;
+  font-size: 40px;
+
+  border: 3px solid #fff;                   /* 白色描边：彩色背景下更醒目 */
+  box-shadow: 0 2px 10px rgba(31, 41, 60, 0.15);
+
+  /* 用弹性盒把"姓氏首字"精确居中 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: transform 0.35s ease;        /* 头像自身微动过渡 */
+}
+
+/* 卡片悬停时头像轻微放大，作为整体上流动效的呼应（可选细节） */
+.card:hover .avatar {
+  transform: scale(1.06);
+}
+
+/* ---------- 6. 姓名与职位 ---------- */
+.name {
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: 2px;                      /* 二字姓名加字距更透气 */
+  color: var(--color-text);
+  margin-bottom: 8px;
+}
+
+.position {
+  font-size: 0.95rem;
+  letter-spacing: 1px;
+  color: var(--color-muted);                /* 次要信息用弱化颜色 */
+  margin-bottom: 26px;
+}
+
+/* ---------- 7. 分割线：连接上部信息与下部联系方式 ---------- */
+.divider {
+  border: none;                             /* 去掉默认立体边框   */
+  height: 1px;
+  background: rgba(31, 41, 60, 0.10);       /* 细浅灰线，克制的简约感 */
+  width: 100%;
+  margin: 4px 0 18px;
+}
+
+/* ---------- 8. 联系方式列表 ---------- */
+.contact {
+  list-style: none;                         /* 去掉默认圆点       */
+  padding: 0;
+  display: flex;
+  flex-direction: column;                   /* 纵向排列邮箱与电话 */
+  gap: 14px;
+}
+
+.contact li {
+  display: flex;                            /* 图标 + 文字行内对齐 */
+  align-items: center;
+  gap: 12px;
+}
+
+.contact .icon {
+  width: 16px;
+  height: 16px;
+  color: var(--color-primary);              /* 图标使用主色点缀     */
+  flex-shrink: 0;                           /* 防止图标被挤压变形 */
+}
+
+.contact span {
+  font-size: 0.92rem;
+  color: #5a6b7d;
+  letter-spacing: 0.5px;
+}
+
+/* ---------- 9. 无障碍细节：尊重系统"减少动效"偏好 ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .avatar {
+    transition: none;   /* 关闭过渡动画，避免对易晕动用户造成不适 */
+  }
+}

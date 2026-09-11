@@ -1,0 +1,177 @@
+/* ==========================================
+   简约风格个人名片 —— 样式文件
+   作者：custom
+   说明：HTML 结构与 CSS 样式分离书写
+   ========================================== */
+
+/* ---------- 全局重置与基础样式 ---------- */
+* {
+  /* 统一盒模型，让宽高包含内边距和边框，便于布局计算 */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  /* 使用 Flexbox 实现卡片在页面中水平、垂直双向居中 */
+  min-height: 100vh;                    /* 至少占满一屏高度，保证垂直居中有效 */
+  display: flex;
+  align-items: center;                  /* 垂直居中 */
+  justify-content: center;              /* 水平居中 */
+  background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);
+  font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  color: #2d3436;
+}
+
+/* ---------- 名片卡片 ---------- */
+.card {
+  /* 卡片整体使用弹性列布局：头像在上，信息在下 */
+  width: 340px;                         /* 固定卡片宽度，保持简洁的卡片比例 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 30px 36px;
+  background: #ffffff;
+  border-radius: 12px;                  /* 12px 圆角（需求） */
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12),   /* 柔和的双层阴影：外层大范围浅阴影 */
+              0 2px 6px rgba(0, 0, 0, 0.06);    /* 内层贴近卡片的小阴影增加质感 */
+  transition: transform 0.3s ease,      /* 过渡动画：作用于位移与阴影 */
+              box-shadow 0.3s ease;
+}
+
+/* 鼠标悬停时的效果：卡片轻微上浮并加深阴影 */
+.card:hover {
+  transform: translateY(-8px);          /* 向上平移 8px，实现"上浮"效果 */
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.18),  /* 悬停时阴影更深更扩散，模拟抬离页面 */
+              0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* 为了获得更好的可访问性：键盘用户聚焦时与悬停保持一致的反馈 */
+.card:focus-visible {
+  outline: 3px solid #5b8ef4;
+  outline-offset: 4px;
+}
+
+/* ---------- 圆形头像 ---------- */
+/* 头像的外层圆形底座 */
+.avatar-wrapper {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;                   /* 圆形头像（铺满圆形区域） */
+  overflow: hidden;                     /* 裁掉超出圆形的图片部分 */
+  border: 3px solid #ffffff;            /* 白色描边，与卡片背景区分 */
+  box-shadow: 0 0 0 2px #dfe4ea;        /* 细灰环，简约分割线 */
+  flex-shrink: 0;
+}
+
+/* 头像图片本身铺满外层容器 */
+.avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;                    /* 保持比例并裁切填满，防止图片变形 */
+  display: block;
+}
+
+/* ---------- 姓名与职位 ---------- */
+.profile {
+  margin-top: 18px;
+  text-align: center;                   /* 文字居中 */
+}
+
+/* 姓名 */
+.name {
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: 1px;                  /* 字间距略微拉开，更显简约精致 */
+  color: #2d3436;
+}
+
+/* 职位：使用小号字号 + 辅助色，形成视觉层级 */
+.role {
+  margin-top: 6px;
+  font-size: 14px;
+  font-weight: 400;
+  color: #8a919c;
+  letter-spacing: 2px;
+}
+
+/* ---------- 联系方式列表 ---------- */
+.contact-list {
+  margin-top: 24px;
+  width: 100%;
+  list-style: none;                     /* 去掉默认的项目符号 */
+  padding: 0;
+}
+
+/* 每条联系信息：左侧标签 + 右侧值，两端对齐 */
+.contact-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+}
+
+/* 悬停单条联系信息时，给出浅浅的反馈色 */
+.contact-item:hover {
+  background-color: #f4f6f9;
+}
+
+/* 左侧固定宽度的灰色小标签 */
+.label {
+  flex-shrink: 0;
+  min-width: 40px;
+  font-size: 13px;
+  color: #9aa1ab;
+  letter-spacing: 1px;
+}
+
+/* 右侧具体联系方式，链接样式简明统一 */
+.value {
+  flex: 1;                              /* 占满剩余空间，天然右对齐 */
+  font-size: 13px;
+  color: #5b8ef4;                       /* 统一的品牌色 */
+  text-decoration: none;
+  overflow: hidden;
+  text-overflow: ellipsis;              /* 超长内容省略，避免卡片变形 */
+  white-space: nowrap;
+}
+
+/* 链接悬停时加深颜色 */
+.value:hover {
+  color: #3f6ce0;
+}
+
+/* ---------- 响应式：小屏设备下卡片自适应宽度 ---------- */
+@media (max-width: 420px) {
+  .card {
+    width: 100%;
+    max-width: 320px;
+    margin: 16px;
+  }
+}
+
+/* ---------- 平滑入场动画（页面加载时卡片淡入+上移） ---------- */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 卡片应用入场动画；注意入场动画结束后自动返回过渡态，不影响 hover 效果 */
+.card {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+/* 如果用户偏好减少动画，则禁用入场动画 */
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    animation: none;
+  }
+}

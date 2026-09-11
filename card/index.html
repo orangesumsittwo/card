@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<!-- =================================================================
+  个人名片 —— 结构文件 (index.html)
+  风格：简约  布局：居中卡片式
+  说明：本文件只负责【页面结构】，所有样式统一写在 style.css 中，
+        实现 HTML 结构与 CSS 样式完全分离。
+  ================================================================= -->
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <!-- 移动端视口适配：让卡片在手机上也能良好缩放 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>个人名片 · 林晓</title>
+  <!-- 引入外部样式文件（结构与样式分离书写） -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ============ 名片卡片：居中定位由 .card 完成 ============ -->
+  <section class="card">
+
+    <!-- 1. 圆形头像：使用姓氏首字 + 渐变背景实现，无需依赖外部图片 -->
+    <div class="avatar" aria-hidden="true">林</div>
+
+    <!-- 2. 姓名 -->
+    <h1 class="name">林晓</h1>
+
+    <!-- 3. 职位 -->
+    <p class="position">前端开发工程师 · 产品设计师</p>
+
+    <!-- 4. 联系方式：细分割线与名单条带 -->
+    <hr class="divider">
+
+    <ul class="contact">
+      <li>
+        <!-- 邮箱图标：内联 SVG（无外部依赖，可任意配色） -->
+        <svg class="icon" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+          <!-- 信封主体：圆角矩形 -->
+          <rect x="3.5" y="8" width="17" height="12" rx="1"></rect>
+          <!-- 信封封口：顶部的 V 形折线 -->
+          <path d="M12 4.5 L5.5 8 L18.5 8"
+                stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+        <span>linxiao@example.com</span>
+      </li>
+      <li>
+        <!-- 电话图标：内联 SVG 话筒造型 -->
+        <svg class="icon" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+          <path d="M6.6 10.2h10.8M6.6 10.2a5 5 0 0 1 5.4 9.6M16.8 19.8a5 5 0 0 1-5.4-9.6"
+                stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+        <span>+86 138-0000-0000</span>
+      </li>
+    </ul>
+
+  </section>
+
+</body>
+</html>
